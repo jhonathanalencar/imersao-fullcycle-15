@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: codepix-go
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: codepix-go
+  template:
+    metadata:
+      labels:
+        app: codepix-go
+    spec:
+      containers:
+        - name: codepix-go
+          image: jhonathanalencar/codepix-go:latest
+          command: ["./codepix", "all"]
+          ports:
+            - containerPort: 50051
+          envFrom:
+            - secretRef:
+                name: codepix-go-secret
+
+          volumeMounts:
+            - name: codepix-go-volume
+              mountPath: /go/src/.env
+              subPath: .env
+
+      volumes:
+        - name: codepix-go-volume
+          configMap:
+            name: codepix-go-conf
+            items:
+              - key: env
+                path: .env

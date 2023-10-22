@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: next
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: next
+  template:
+    metadata:
+      labels:
+        app: next
+    spec:
+      containers:
+        - name: codepix-next
+          image: wesleywillians/imersao-bankfrontend:latest
+          ports:
+            - containerPort: 3000
+
+          volumeMounts:
+            - name: next-volume
+              mountPath: /app/.env
+              subPath: .env
+
+      volumes:
+        - name: next-volume
+          configMap:
+            name: next-conf
+            items:
+              - key: env
+                path: .env

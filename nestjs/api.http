@@ -1,0 +1,54 @@
+# @name get-bank-accounts
+GET http://localhost:3000/bank-accounts
+
+@bank_acount_id = 6760cffc-fed4-43ed-ae18-0b0799a9073d
+
+###
+
+# @name get-bank-account-by-id
+GET http://localhost:3000/bank-accounts/{{bank_acount_id}}
+
+###
+
+# @name create-bank-account
+POST http://localhost:3000/bank-accounts
+Content-Type: application/json
+
+{
+  "account_number": "1111-1",
+  "owner_name": "Alice Garden"
+}
+
+###
+
+# @name get-pix-keys
+GET http://localhost:3000/bank-accounts/{{bank_acount_id}}/pix-keys
+
+###
+
+# @name create-pix-key
+POST http://localhost:3000/bank-accounts/{{bank_acount_id}}/pix-keys
+Content-Type: application/json
+
+{
+  "kind": "email",
+  "key": "user1@email.com"
+}
+
+###
+
+# @name get-transactions
+GET http://localhost:3000/bank-accounts/{{bank_acount_id}}/transactions
+
+### 
+
+# @name Create-transaction
+POST http://localhost:3000/bank-accounts/{{bank_acount_id}}/transactions
+Content-Type: application/json
+
+{
+  "pix_key_key": "user1@email.com",
+  "pix_key_kind": "email",
+  "description": "My transaction",
+  "amount": 10.00
+}

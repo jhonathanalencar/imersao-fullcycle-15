@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: codepix-go-service
+spec:
+  type: ClusterIP
+  selector:
+    app: codepix-go
+  ports:
+    - port: 50051
